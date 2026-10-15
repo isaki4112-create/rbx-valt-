@@ -1,0 +1,292 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RBX VAULT</title>
+<style>
+:root{--red:#ff1838;--bg:#08090d;--panel:#12141d;--muted:#999fb0}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:white;font-family:Arial,sans-serif}
+nav{padding:20px 6%;display:flex;justify-content:space-between;align-items:center;background:#101116;border-bottom:1px solid #292a33;position:sticky;top:0}
+.logo{font-size:22px;font-weight:900;color:white;text-decoration:none}
+.logo span,h1 span{color:var(--red)}
+nav a{color:#ddd;text-decoration:none}
+.hero{text-align:center;padding:75px 20px 55px;background:radial-gradient(ellipse,#45101c,transparent 70%)}
+.eyebrow{color:#ff7287;letter-spacing:3px;font-size:12px}
+h1{font-size:clamp(35px,8vw,70px);margin:20px 0}
+.hero p,.muted{color:var(--muted);line-height:1.7}
+.btn{border:0;background:var(--red);color:white;padding:13px 17px;border-radius:5px;font-weight:bold;cursor:pointer}
+.btn.secondary{background:#272934}
+section{max-width:1100px;margin:auto;padding:45px 20px}
+h2{margin-top:0}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
+.card{background:var(--panel);border:1px solid #2b2c37;border-radius:9px;padding:20px}
+.art{height:110px;display:grid;place-items:center;font-size:50px;background:#1b121a;border-radius:6px;margin-bottom:15px}
+.tag{color:#ff8192;font-size:11px;font-weight:bold}
+.username{background:#090a0f;padding:12px;border-radius:5px;margin:14px 0;overflow-wrap:anywhere}
+button{font:inherit}
+.card .btn{width:100%}
+.chatbox{background:var(--panel);padding:15px;border:1px solid #292a33;border-radius:8px}
+#messages{height:220px;overflow:auto;background:#08090d;padding:10px;border-radius:5px;margin-bottom:12px}
+.message{padding:8px;border-bottom:1px solid #292a33;overflow-wrap:anywhere}
+.message b{color:#ff7187;margin-right:7px}
+input,select,textarea{width:100%;padding:12px;background:#090a0f;color:white;border:1px solid #393b48;border-radius:5px;margin:5px 0 12px}
+.row{display:flex;gap:8px}
+.row>*{flex:1;min-width:0}
+.modal{display:none;position:fixed;inset:0;background:#000d;z-index:10;align-items:center;justify-content:center;padding:15px}
+.modal.open{display:flex}
+.modalbox{background:#14151d;border:1px solid var(--red);border-radius:10px;padding:22px;width:min(450px,100%);max-height:90vh;overflow:auto}
+#add{position:fixed;bottom:18px;right:18px;z-index:5;border-radius:30px;box-shadow:0 5px 25px #ff183855}
+#toast{position:fixed;bottom:75px;left:50%;transform:translateX(-50%);background:#252631;padding:12px 18px;border-radius:6px;display:none;z-index:20}
+footer{text-align:center;padding:25px;color:#888;border-top:1px solid #252631}
+.channel{display:flex;align-items:center;gap:15px}
+.channel-icon{width:55px;height:55px;border-radius:50%;background:#29202a;display:grid;place-items:center;font-size:23px}
+a{color:#ff7187}
+@media(max-width:500px){nav{padding:16px}.row{flex-direction:column}}
+</style>
+</head>
+<body>
+<nav>
+  <a class="logo" href="#">RBX<span>VAULT.</span></a>
+  <a href="#accounts">ACCOUNTS</a>
+</nav>
+
+<header class="hero">
+  <div class="eyebrow">✦ THE GIVEAWAY HUB ✦</div>
+  <h1>YOUR NEXT<br><span>GIVEAWAY.</span></h1>
+  <p>Browse listings, join the community and discover giveaways.</p>
+  <button class="btn" onclick="document.getElementById('accounts').scrollIntoView({behavior:'smooth'})">EXPLORE LISTINGS ↓</button>
+</header>
+
+<section id="accounts">
+  <h2>Available Listings</h2>
+  <p class="muted">Choose a listing to begin its three-minute countdown.</p>
+  <div class="cards" id="cards"></div>
+</section>
+
+<section id="world-chat">
+  <h2>🌐 World Chat</h2>
+  <p class="muted">Chat messages in this single-file version stay in this browser.</p>
+  <div class="chatbox">
+    <div id="messages" aria-live="polite"></div>
+    <form id="chatform">
+      <input id="chatname" maxlength="24" placeholder="Your display name" required>
+      <div class="row">
+        <input id="chattext" maxlength="300" placeholder="Write a message..." required>
+        <button class="btn">SEND</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<section id="channels">
+  <h2>YouTube Channels</h2>
+  <div class="cards">
+    <div class="card channel">
+      <div class="channel-icon">▶</div>
+      <div><b>fearbloxy</b><p><a href="https://youtube.com/@fearbloxy" target="_blank" rel="noopener">Visit channel ↗</a></p></div>
+    </div>
+    <div class="card channel">
+      <div class="channel-icon">▶</div>
+      <div><b>Gotly_roblox</b><p><a href="https://youtube.com/@gotly_roblox" target="_blank" rel="noopener">Visit channel ↗</a></p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>How It Works</h2>
+  <div class="cards">
+    <div class="card"><h3>01 — Choose</h3><p class="muted">Choose an available giveaway listing.</p></div>
+    <div class="card"><h3>02 — Wait</h3><p class="muted">Wait for the three-minute countdown.</p></div>
+    <div class="card"><h3>03 — Reveal</h3><p class="muted">The giveaway code appears when the timer ends.</p></div>
+  </div>
+</section>
+
+<button class="btn" id="add" onclick="openModal()">＋ ADD ACCOUNT</button>
+<div id="toast" role="status"></div>
+
+<div class="modal" id="modal">
+  <div class="modalbox">
+    <h2>＋ Add Listing</h2>
+    <form id="accessform">
+      <label>Owner access code</label>
+      <input id="accesscode" type="password" placeholder="Enter access code" required>
+      <button class="btn">CONTINUE</button>
+      <button type="button" class="btn secondary" onclick="closeModal()">CANCEL</button>
+    </form>
+    <form id="listingform" hidden>
+      <label>Listing level</label>
+      <select id="level"><option>Starter</option><option>Medium</option><option>Legend</option></select>
+      <label>Listing title</label>
+      <input id="title" maxlength="50" placeholder="Giveaway title" required>
+      <label>Public display username (optional)</label>
+      <input id="username" maxlength="30" placeholder="Display name only">
+      <label>Description</label>
+      <textarea id="description" maxlength="220" required placeholder="Describe your giveaway"></textarea>
+      <label>Giveaway code to reveal after the countdown</label>
+      <input id="giveawaycode" type="password" maxlength="100" required placeholder="Do not enter an account password">
+      <button class="btn">ADD LISTING</button>
+      <button type="button" class="btn secondary" onclick="closeModal()">CANCEL</button>
+    </form>
+  </div>
+</div>
+
+<div class="modal" id="claimmodal">
+  <div class="modalbox" style="text-align:center">
+    <h2 id="claimtitle">CLAIM STARTED</h2>
+    <p class="muted">Your giveaway is being prepared.</p>
+    <div id="timer" style="font-size:45px;color:#ff1838;font-weight:bold">03:00</div>
+    <div id="reveal" hidden style="text-align:left;background:#08090d;padding:15px;border-radius:6px">
+      <p class="muted">DISPLAY USERNAME</p><b id="revealedname"></b>
+      <p class="muted">GIVEAWAY CODE</p><b id="revealedcode"></b>
+    </div>
+    <p id="claimmessage" class="muted">The code appears when the timer ends.</p>
+    <button class="btn secondary" onclick="closeClaim()">CLOSE</button>
+  </div>
+</div>
+
+<footer>RBX VAULT · Community Giveaways</footer>
+
+<script>
+const ACCESS_CODE = "00123";
+const STORAGE_KEY = "rbxVaultGiveaways";
+let timerId = null;
+let currentClaim = null;
+
+function toast(message){
+  const el=document.getElementById("toast");
+  el.textContent=message;
+  el.style.display="block";
+  clearTimeout(toast.timer);
+  toast.timer=setTimeout(()=>el.style.display="none",3000);
+}
+function getListings(){
+  try{return JSON.parse(localStorage.getItem(STORAGE_KEY)||"[]")}
+  catch{return []}
+}
+function saveListings(items){
+  localStorage.setItem(STORAGE_KEY,JSON.stringify(items));
+}
+function render(){
+  const root=document.getElementById("cards");
+  root.replaceChildren();
+  const items=getListings();
+  if(!items.length){
+    root.innerHTML='<p class="muted">No community listings yet. Press ＋ ADD ACCOUNT to add one.</p>';
+    return;
+  }
+  items.forEach(item=>{
+    const card=document.createElement("article");
+    card.className="card";
+    const art=document.createElement("div");
+    art.className="art";
+    art.textContent=item.level==="Legend"?"👑":item.level==="Medium"?"🔥":"🎮";
+    const tag=document.createElement("div");
+    tag.className="tag";
+    tag.textContent=item.level.toUpperCase();
+    const title=document.createElement("h3");
+    title.textContent=item.title;
+    const desc=document.createElement("p");
+    desc.className="muted";
+    desc.textContent=item.description;
+    const user=document.createElement("div");
+    user.className="username";
+    user.textContent="DISPLAY USERNAME: "+(item.username||"Not provided");
+    const btn=document.createElement("button");
+    btn.className="btn";
+    btn.textContent="CLAIM GIVEAWAY ↗";
+    btn.onclick=()=>startClaim(item.id);
+    card.append(art,tag,title,desc,user,document.createElement("br"),btn);
+    root.append(card);
+  });
+}
+function openModal(){
+  document.getElementById("modal").classList.add("open");
+  document.getElementById("accessform").hidden=false;
+  document.getElementById("listingform").hidden=true;
+  document.getElementById("accesscode").value="";
+}
+function closeModal(){document.getElementById("modal").classList.remove("open")}
+document.getElementById("accessform").addEventListener("submit",e=>{
+  e.preventDefault();
+  if(document.getElementById("accesscode").value!==ACCESS_CODE){
+    toast("Incorrect access code.");return;
+  }
+  document.getElementById("accessform").hidden=true;
+  document.getElementById("listingform").hidden=false;
+});
+document.getElementById("listingform").addEventListener("submit",e=>{
+  e.preventDefault();
+  const items=getListings();
+  items.push({
+    id:Date.now().toString()+"-"+Math.random().toString(36).slice(2),
+    level:document.getElementById("level").value,
+    title:document.getElementById("title").value.trim(),
+    username:document.getElementById("username").value.trim(),
+    description:document.getElementById("description").value.trim(),
+    code:document.getElementById("giveawaycode").value
+  });
+  saveListings(items);
+  e.target.reset();
+  closeModal();
+  render();
+  toast("Listing added on this device.");
+});
+function startClaim(id){
+  const items=getListings();
+  const item=items.find(x=>x.id===id);
+  if(!item)return;
+  currentClaim=id;
+  document.getElementById("claimtitle").textContent=item.title;
+  document.getElementById("timer").textContent="03:00";
+  document.getElementById("reveal").hidden=true;
+  document.getElementById("claimmessage").textContent="The giveaway code appears when the timer ends.";
+  document.getElementById("claimmodal").classList.add("open");
+  clearInterval(timerId);
+  let seconds=180;
+  timerId=setInterval(()=>{
+    seconds--;
+    document.getElementById("timer").textContent=
+      String(Math.floor(seconds/60)).padStart(2,"0")+":"+
+      String(seconds%60).padStart(2,"0");
+    if(seconds<=0){
+      clearInterval(timerId);
+      const latest=getListings();
+      const claimed=latest.find(x=>x.id===currentClaim);
+      if(!claimed)return;
+      document.getElementById("timer").textContent="READY";
+      document.getElementById("revealedname").textContent=claimed.username||"Not provided";
+      document.getElementById("revealedcode").textContent=claimed.code;
+      document.getElementById("reveal").hidden=false;
+      document.getElementById("claimmessage").textContent="GIVEAWAY DETAILS";
+      // Remove the claimed listing in this browser only.
+      saveListings(latest.filter(x=>x.id!==currentClaim));
+      render();
+    }
+  },1000);
+}
+function closeClaim(){
+  document.getElementById("claimmodal").classList.remove("open");
+  clearInterval(timerId);
+}
+document.getElementById("chatform").addEventListener("submit",e=>{
+  e.preventDefault();
+  const name=document.getElementById("chatname").value.trim();
+  const message=document.getElementById("chattext").value.trim();
+  if(!name||!message)return;
+  const node=document.createElement("div");
+  node.className="message";
+  const b=document.createElement("b");
+  b.textContent=name+":";
+  node.append(b,document.createTextNode(message));
+  document.getElementById("messages").append(node);
+  document.getElementById("messages").scrollTop=999999;
+  document.getElementById("chattext").value="";
+});
+render();
+</script>
+</body>
+  </html>
+                                       
